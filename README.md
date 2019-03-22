@@ -37,10 +37,12 @@ sudo apt purge kdeconnect
 sudo apt purge cantata
 sudo apt purge mpd
 sudo apt purge k3b*
+sudo apt purge cups*
+sudo apt purge avahi*
 ~~~
 
 ~~~
-sudo apt purge knotes* kmail* ktorrent* k3b* korganizer* kontact amarok* dragonplayer* konversation* akregator krdc akonadi-server akonadi-backend-mysql kde-telepathy* ktnef kdeconnect-plasma kdeconnect cantata mpd k3b*
+sudo apt purge knotes* kmail* ktorrent* k3b* korganizer* kontact amarok* dragonplayer* konversation* akregator krdc akonadi-server akonadi-backend-mysql kde-telepathy* ktnef kdeconnect-plasma kdeconnect cantata mpd k3b* cups* avahi*
 ~~~
 
 ## environment:
