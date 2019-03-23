@@ -64,3 +64,24 @@ sudo apt purge cups* avahi*
 ~~~
 sudo apt-get install build-essential qt5-default qtbase5-dev qttools5-dev-tools uuid-dev devscripts pbuilder git-buildpackage 
 ~~~
+
+## ssh to vm
+### host 
+~~~
+*generate key without passphrase
+$ ssh-keygen -t rsa -b 4096 -C "keyname"
+~~~
+~~~
+*add key
+$ ssh-add ~/.ssh/keyfilename
+~~~
+~~~
+* copy key to VM
+cat .ssh/keyfilename.pub | ssh vm_login@vm_ip_port 'cat >> .ssh/authorized_keys'
+~~~
+
+~~~
+ssh vm_login@vm_ip_port
+~~~
+
+
