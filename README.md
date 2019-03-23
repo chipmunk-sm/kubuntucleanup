@@ -1,4 +1,4 @@
-# kubuntu config 
+# VM config 
 
 ## install 
 
