@@ -62,5 +62,5 @@ sudo apt purge cups* avahi*
 ## build env
 
 ~~~
-sudo apt-get install build-essential qt5-default qtbase5-dev qttools5-dev-tools uuid-dev devscripts
+sudo apt-get install build-essential qt5-default qtbase5-dev qttools5-dev-tools uuid-dev devscripts pbuilder git-buildpackage 
 ~~~
