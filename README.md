@@ -83,12 +83,12 @@ $ ssh-keygen -t rsa -b 4096 -C "keyname"
 
 ~~~
 *add key
-$ ssh-add ~/.ssh/keyfilename
+$ ssh-add ~/.ssh/keyname
 ~~~
 
 ~~~
 * copy key to VM
-$ cat .ssh/keyfilename.pub | ssh vm_login@vm_ip_port 'cat >> .ssh/authorized_keys'
+$ cat .ssh/keyname.pub | ssh vm_login@vm_ip_port 'cat >> .ssh/authorized_keys'
 ~~~
 
 ~~~
