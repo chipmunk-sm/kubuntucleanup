@@ -85,5 +85,5 @@ $ cat .ssh/keyname.pub | ssh vm_login@vm_ip_port 'cat >> .ssh/authorized_keys'
 ~~~
 $ ssh vm_login@vm_ip_port
 ~~~
-* on VM: chmod 640 authorized_keys
+* on VM: chmod 600 authorized_keys
 
