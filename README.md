@@ -47,7 +47,7 @@ $ sudo apt purge kdeconnect
 $ sudo apt purge cantata
 $ sudo apt purge mpd
 $ sudo apt purge avahi*
-$ sudo apt purge
+$ sudo apt purge cups*
 $ sudo apt purge plasma-discover
  or
 $ sudo apt purge knotes* kmail* ktorrent* k3b* korganizer* kontact amarok* dragonplayer* konversation* akregator krdc akonadi-server akonadi-backend-mysql kde-telepathy* ktnef kdeconnect-plasma kdeconnect cantata mpd avahi* cups* plasma-discover
