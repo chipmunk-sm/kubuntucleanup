@@ -90,5 +90,5 @@ $ cat ~/.ssh/keyname.pub | ssh vm_login@vm_ip_port 'cat >> ~/.ssh/authorized_key
 ~~~
 $ ssh vm_login@vm_ip_port
 ~~~
-* on VM: chmod 600 authorized_keys
+* on VM: chmod 600 ~/.ssh/authorized_keys
 
