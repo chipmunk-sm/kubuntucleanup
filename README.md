@@ -8,9 +8,7 @@ $ sudo apt install gparted
 $ sudo apt install vlc
 $ sudo apt install thunderbird
 $ sudo apt install qbittorrent
-~~~
-
-~~~
+ or
 $ sudo apt install muon gparted vlc thunderbird qbittorrent
 ~~~
 
@@ -41,9 +39,7 @@ $ sudo apt purge kdeconnect-plasma
 $ sudo apt purge kdeconnect
 $ sudo apt purge cantata
 $ sudo apt purge mpd
-~~~
-
-~~~
+ or
 $ sudo apt purge knotes* kmail* ktorrent* k3b* korganizer* kontact amarok* dragonplayer* konversation* akregator krdc akonadi-server akonadi-backend-mysql kde-telepathy* ktnef kdeconnect-plasma kdeconnect cantata mpd
 ~~~
 
@@ -51,10 +47,7 @@ $ sudo apt purge knotes* kmail* ktorrent* k3b* korganizer* kontact amarok* drago
 * can damage system
 $ sudo apt purge cups*
 $ sudo apt purge avahi*
-~~~
-
-~~~
-* can damage system
+ or
 $ sudo apt purge cups* avahi*
 ~~~
 
