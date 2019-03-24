@@ -14,6 +14,7 @@ $ sudo apt install qbittorrent
 $ sudo apt install muon gparted vlc thunderbird qbittorrent
 ~~~
 
+~~~
 $ sudo apt install openssh-server
 ~~~
 
