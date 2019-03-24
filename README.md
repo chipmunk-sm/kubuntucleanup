@@ -78,8 +78,13 @@ $ ssh-add ~/.ssh/keyname
 ~~~
 
 ~~~
+* mkdir .ssh on VM
+$  ssh vm_login@vm_ip_port 'mkdir -p ~/.ssh'
+~~~
+
+~~~
 * copy key to VM
-$ cat .ssh/keyname.pub | ssh vm_login@vm_ip_port 'cat >> .ssh/authorized_keys'
+$ cat ~/.ssh/keyname.pub | ssh vm_login@vm_ip_port 'cat >> ~/.ssh/authorized_keys'
 ~~~
 
 ~~~
