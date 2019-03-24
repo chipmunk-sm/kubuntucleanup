@@ -53,6 +53,10 @@ sudo apt purge avahi*
 sudo apt purge cups* avahi*
 ~~~
 
+~~~
+sudo apt purge plasma-discover
+~~~
+
 ## environment:
 
 ~~~
