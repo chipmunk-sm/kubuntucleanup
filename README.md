@@ -1,6 +1,18 @@
 # VM config 
 
+## update
+
+~~~
+$ sudo apt update
+$ sudo apt upgrade
+* Run the "purge cups*" will damage the system without the latest updates.
+~~~
+
 ## install 
+
+~~~
+$ sudo apt install openssh-server
+~~~
 
 ~~~
 $ sudo apt install muon
@@ -11,11 +23,6 @@ $ sudo apt install qbittorrent
  or
 $ sudo apt install muon gparted vlc thunderbird qbittorrent
 ~~~
-
-~~~
-$ sudo apt install openssh-server
-~~~
-
 
 ## Remove unnecessary software:
 
@@ -40,23 +47,10 @@ $ sudo apt purge kdeconnect
 $ sudo apt purge cantata
 $ sudo apt purge mpd
 $ sudo apt purge avahi*
- or
-$ sudo apt purge knotes* kmail* ktorrent* k3b* korganizer* kontact amarok* dragonplayer* konversation* akregator krdc akonadi-server akonadi-backend-mysql kde-telepathy* ktnef kdeconnect-plasma kdeconnect cantata mpd avahi*
-~~~
-
-~~~
-* can damage system
-$ sudo apt purge cups*
-~~~
-
-~~~
+$ sudo apt purge
 $ sudo apt purge plasma-discover
-~~~
-
-## environment:
-
-~~~
- XDG_CURRENT_DESKTOP="KDE"
+ or
+$ sudo apt purge knotes* kmail* ktorrent* k3b* korganizer* kontact amarok* dragonplayer* konversation* akregator krdc akonadi-server akonadi-backend-mysql kde-telepathy* ktnef kdeconnect-plasma kdeconnect cantata mpd avahi* cups* plasma-discover
 ~~~
 
 ## build env
@@ -65,8 +59,15 @@ $ sudo apt purge plasma-discover
 $ sudo apt-get install build-essential qt5-default qtbase5-dev qttools5-dev-tools uuid-dev devscripts pbuilder git-buildpackage 
 ~~~
 
-## ssh to vm
-### host 
+## environment:
+~~~
+ XDG_CURRENT_DESKTOP="KDE"
+~~~
+
+## SSH to VM from HOST 
+
+### host
+
 ~~~
 *generate key without passphrase
 $ ssh-keygen -t rsa -b 4096 -C "keyname"
@@ -90,5 +91,10 @@ $ cat ~/.ssh/keyname.pub | ssh vm_login@vm_ip_port 'cat >> ~/.ssh/authorized_key
 ~~~
 $ ssh vm_login@vm_ip_port
 ~~~
-* on VM: chmod 600 ~/.ssh/authorized_keys
+
+### VM
+
+~~~
+chmod 600 ~/.ssh/authorized_keys
+~~~
 
