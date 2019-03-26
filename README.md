@@ -10,6 +10,14 @@ expected:
 INFO: /dev/kvm exists
 KVM acceleration can be used
 
+List all groups on host
+$ getent group|cut -d: -f1
+
+Add user to kvm group 
+$ usermod -g kvm $USER
+
+To find group memebership for $USER
+$ groups $USER
 
 ~~~
 # 2
