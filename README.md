@@ -32,7 +32,7 @@ ps -ef | grep qemu-system-x86_64
 ~~~
 $ sudo apt update
 $ sudo apt upgrade
-* Run the "purge cups*" will damage the system without the latest updates.
+ * Run the "purge cups*" will damage the system without the latest updates.
 ~~~
 
 ## install 
@@ -42,13 +42,20 @@ $ sudo apt install openssh-server
 ~~~
 
 ~~~
+ * Muon is a graphical package manager for KDE.
 $ sudo apt install muon
-$ sudo apt install gparted
+ * Midnight Commander is a text-mode full-screen file manager.
+$ sudo apt install mc
+
+ * VLC is the VideoLAN project's media player. 
 $ sudo apt install vlc
+ * Thunderbird is a full-featured email client
 $ sudo apt install thunderbird
+ * BitTorrent client
 $ sudo apt install qbittorrent
+
  or
-$ sudo apt install muon gparted vlc thunderbird qbittorrent
+$ sudo apt install muon mc vlc thunderbird qbittorrent
 ~~~
 
 ## Remove unnecessary software:
