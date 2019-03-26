@@ -98,3 +98,10 @@ $ ssh vm_login@vm_ip_port
 chmod 600 ~/.ssh/authorized_keys
 ~~~
 
+## HOST
+
+setup kvm
+~~~
+$ sudo apt install cpu-checker
+
+~~~
