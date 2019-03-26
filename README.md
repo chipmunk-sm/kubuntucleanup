@@ -21,9 +21,13 @@ $ groups $USER
 
 List virtual machines
 ps -ef | grep qemu-system-x86_64
-
+~~~
 
 ~~~
+Server uptime & file system disk space usage
+$ uptime; df -h
+~~~
+
 # 2
 # VM config 
 
