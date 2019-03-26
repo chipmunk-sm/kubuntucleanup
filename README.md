@@ -1,3 +1,18 @@
+
+# 1
+## HOST
+
+setup kvm
+~~~
+$ sudo apt install cpu-checker
+$ kvm-ok
+expected:
+INFO: /dev/kvm exists
+KVM acceleration can be used
+
+
+~~~
+# 2
 # VM config 
 
 ## update
@@ -98,10 +113,3 @@ $ ssh vm_login@vm_ip_port
 chmod 600 ~/.ssh/authorized_keys
 ~~~
 
-## HOST
-
-setup kvm
-~~~
-$ sudo apt install cpu-checker
-
-~~~
