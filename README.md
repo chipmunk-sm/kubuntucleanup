@@ -10,6 +10,10 @@ expected:
 INFO: /dev/kvm exists
 KVM acceleration can be used
 
+$ sudo apt install qemu-kvm
+or package:
+$ sudo apt install qemu
+
 List all groups on host
 $ getent group|cut -d: -f1
 
