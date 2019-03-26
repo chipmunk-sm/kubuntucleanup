@@ -19,6 +19,10 @@ $ usermod -g kvm $USER
 To find group memebership for $USER
 $ groups $USER
 
+List virtual machines
+ps -ef | grep qemu-system-x86_64
+
+
 ~~~
 # 2
 # VM config 
