@@ -26,6 +26,9 @@ ps -ef | grep qemu-system-x86_64
 ~~~
 Server uptime & file system disk space usage
 $ uptime; df -h
+
+Check last reboot
+$ last reboot
 ~~~
 
 # 2
