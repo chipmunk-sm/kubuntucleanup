@@ -14,6 +14,8 @@ $ sudo apt install qemu-kvm
 or package:
 $ sudo apt install qemu
 
+$ sudo apt install libvirt-clients
+
 List all groups on host
 $ getent group|cut -d: -f1
 
