@@ -145,3 +145,9 @@ $ ssh vm_login@vm_ip_port
 chmod 600 ~/.ssh/authorized_keys
 ~~~
 
+~~~
+Disable password authentication in ssh
+set 'PasswordAuthentication no' in
+/etc/ssh/sshd_config
+~~~
+
