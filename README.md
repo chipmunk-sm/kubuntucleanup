@@ -103,7 +103,7 @@ $ sudo apt purge knotes* kmail* ktorrent* k3b* korganizer* kontact amarok* drago
 ## build env
 
 ~~~
-$ sudo apt-get install build-essential qt5-default qtbase5-dev qttools5-dev-tools uuid-dev devscripts pbuilder git-buildpackage 
+$ sudo apt-get install build-essential qt5-default qtbase5-dev qttools5-dev-tools uuid-dev devscripts pbuilder git-buildpackage git-build-recipe 
 ~~~
 
 ## environment:
