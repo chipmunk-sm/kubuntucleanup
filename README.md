@@ -49,6 +49,11 @@ $ echo 'exec /usr/bin/startxfce4 &' >> ~/.vnc/xstartup
 $ vncserver :1 -geometry 1440x900 -depth 24
 ~~~
 
+* Create an ssh tunnel, connect to the VNC Desktop
+~~~
+$ ssh <UserName>@<RemoteHostIp> -p <PortOnRemoteHost> -C -L 5901:127.0.0.1:5901
+~~~
+
 
 # 2
 # VM config 
