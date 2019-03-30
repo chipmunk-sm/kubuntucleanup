@@ -37,6 +37,19 @@ Check last reboot
 $ last reboot
 ~~~
 
+vncserver
+
+~~~
+$ sudo apt -y install vnc4server xfce4 xfce4-goodies xfonts-75dpi xfonts-100dpi net-tools
+$ vncpasswd
+$ vncserver :1 -geometry 1440x900 -depth 24
+$ vncserver -kill :1
+$ cp ~/.vnc/xstartup ~/.vnc/xstartup.bac
+$ echo 'exec /usr/bin/startxfce4 &' >> ~/.vnc/xstartup
+$ vncserver :1 -geometry 1440x900 -depth 24
+~~~
+
+
 # 2
 # VM config 
 
