@@ -141,6 +141,10 @@ $ ssh-keygen -t rsa -b 4096 -C "keyname"
 ~~~
 *add key
 $ ssh-add ~/.ssh/keyname
+
+*Permanently add an SSH key to ~/.config/autostart-scripts/ssh-add.sh
+#!/bin/sh
+ssh-add $HOME/.ssh/key@name </dev/null
 ~~~
 
 ~~~
