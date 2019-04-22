@@ -144,7 +144,9 @@ $ ssh-add ~/.ssh/keyname
 
 *Permanently add an SSH key to ~/.config/autostart-scripts/ssh-add.sh
 #!/bin/sh
-ssh-add $HOME/.ssh/key@name </dev/null
+ssh-add $HOME/.ssh/key@name1 </dev/null
+ssh-add $HOME/.ssh/key@name2 </dev/null
+ssh-add $HOME/.ssh/key@name3 </dev/null
 ~~~
 
 ~~~
