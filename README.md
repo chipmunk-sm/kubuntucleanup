@@ -155,7 +155,7 @@ $  ssh vm_login@vm_ip_port 'mkdir -p ~/.ssh'
 ~~~
 
 ~~~
-* copy key to VM
+* add key to VM 'authorized_keys'
 $ cat ~/.ssh/keyname.pub | ssh vm_login@vm_ip_port 'cat >> ~/.ssh/authorized_keys'
 ~~~
 
