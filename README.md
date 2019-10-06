@@ -167,6 +167,8 @@ $ ssh vm_login@vm_ip_port
 ### VM
 
 ~~~
+sudo ufw allow SSH_PORT
+
 chmod 600 ~/.ssh/authorized_keys
 ~~~
 
