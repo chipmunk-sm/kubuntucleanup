@@ -137,8 +137,8 @@ $ sudo apt-get install build-essential qt5-default qtbase5-dev qttools5-dev-tool
 ~~~
 *generate key without passphrase
 $ ssh-keygen -t rsa -b 4096 -C "keyname"
+*save to ~/.ssh/keyname
 ~~~
-
 ~~~
 *add key
 $ ssh-add ~/.ssh/keyname
