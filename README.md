@@ -63,7 +63,6 @@ $ ssh <UserName>@<RemoteHostIp> -p <PortOnRemoteHost> -C -L 5901:127.0.0.1:5901
 ~~~
 $ sudo apt update
 $ sudo apt upgrade
- * Run the "purge cups*" will damage the system without the latest updates.
 ~~~
 
 ## install 
@@ -90,6 +89,8 @@ $ sudo apt install muon mc vlc thunderbird qbittorrent
 ~~~
 
 ## Remove unnecessary software:
+
+### WARNING Update kubuntu before run "purge cups*" or due to bug in dependencies you completely uninstall the desktop.
 
 ~~~
 $ sudo apt purge knotes*
