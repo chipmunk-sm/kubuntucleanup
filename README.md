@@ -37,6 +37,10 @@ Check last reboot
 $ last reboot
 ~~~
 
+~~~
+Install full language support
+$ sudo apt install $(check-language-support)
+~~~
 vncserver
 
 ~~~
