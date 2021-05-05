@@ -103,7 +103,7 @@ fi
 echo "**ssh connect:"
 echo "${colorBLUE}ssh ${vmUser}@127.0.0.1 -p ${vmPort} ${colorDef}"
 echo "**Copy from host to VM:"
-echo "${colorBLUE}scp -P ${vmPort} \"source/somefile.zip\" build1804a@127.0.0.1:\"/home/${vmUser}/Downloads/\" ${vmPort} ${colorDef}"
+echo "${colorBLUE}scp -P ${vmPort} \"$HOME/Downloads/somefile.zip\" ${vmUser}@127.0.0.1:\"/home/${vmUser}/Downloads/\" ${colorDef}"
 echo ""
 echo "**************************************************************"
 
