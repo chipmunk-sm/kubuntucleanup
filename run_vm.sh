@@ -3,6 +3,9 @@
 # scp -P 5556 "$HOME/Documents/installqt.sh" build1804a@127.0.0.1:"/home/build1804a/Downloads/"
 # ssh build1804a@127.0.0.1 -p 5556
 
+# scp -P 5558 "$HOME/Documents/installqt.sh" build2004a@127.0.0.1:"/home/build2004a/Downloads/"
+# ssh build2004a@127.0.0.1 -p 5558
+
 mainPid=$$
 
 #+ configuration
@@ -17,6 +20,9 @@ mainPid=$$
 
 #en_windows_10_enterprise_ltsc_2019_x64
 #./run_vm.sh 3
+
+#kubuntu_20.04.2.0_desktop_amd64
+#./run_vm.sh 4
 
 imgID=$1
 
@@ -48,22 +54,23 @@ if [ -z ${QEMU_WATCHDOG_TIMEOUT} ]; then QEMU_WATCHDOG_TIMEOUT=24h; fi
 #~ colors const
 
 #+
-if [ "$imgID" = 1 ];
-then
+if [ "$imgID" = 1 ]; then
     fileName="${QEMU_HDD_FOLDER}kubuntu-16.04.5-desktop-amd64"
     vmPort=5555
     vmUser=build1604a
-elif [ "$imgID" = 2 ];
-then
+elif [ "$imgID" = 2 ]; then
     fileName="${QEMU_HDD_FOLDER}kubuntu-18.04.2-desktop-amd64"
     vmPort=5556
 #     extFlag='-vga qxl'
     vmUser=build1804a
-elif [ "$imgID" = 3 ];
-then
+elif [ "$imgID" = 3 ]; then
     fileName="${QEMU_HDD_FOLDER}en_windows_10_enterprise_ltsc_2019_x64"
     vmPort=5557
     vmUser=build10a
+elif [ "$imgID" = 4 ]; then
+    fileName="${QEMU_HDD_FOLDER}kubuntu_20.04.2.0_desktop_amd64"
+    vmPort=5558
+    vmUser=build2004a
 else
     echo "${colorRED}***** VM id out of range [${imgID}]${colorDef}\nAbort..."
     exit 1
