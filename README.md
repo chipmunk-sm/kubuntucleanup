@@ -196,5 +196,21 @@ set 'PasswordAuthentication no'
 set 'PubkeyAuthentication yes'
 
 $ sudo systemctl restart sshd.service
+
+$ sudo ufw status verbose
 ~~~
+
+~~~
+$ sudo apt install netstat-nat
+$ sudo netstat -tulpn
+
+* example allow port or port range
+$ sudo ufw allow 5901/tcp
+$ sudo ufw allow 5900:5910/tcp
+
+$ sudo ufw status verbose
+$ sudo ufw enable
+~~~
+
+
 
