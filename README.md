@@ -1,6 +1,6 @@
 
 # 1
-## HOST
+## Remote host
 
 setup kvm
 ~~~
@@ -36,13 +36,13 @@ $ uptime; df -h
 Check last reboot
 $ last reboot
 ~~~
-
+# HOST & VM
 ~~~
 Install full language support
 $ sudo apt install $(check-language-support)
 ~~~
-vncserver
 
+# Remote host & vncserver
 ~~~
 $ sudo apt -y install vnc4server xfce4 xfce4-goodies xfonts-75dpi xfonts-100dpi net-tools
 $ vncpasswd
@@ -134,15 +134,16 @@ $ sudo apt-get install build-essential qt5-default qtbase5-dev qttools5-dev-tool
  XDG_CURRENT_DESKTOP="KDE"
 ~~~
 
-## SSH to VM from HOST 
+## connect to SSH SERVER
 
-### host
+### HOST  
 
 ~~~
 *generate key without passphrase
 $ ssh-keygen -t rsa -b 4096 -C "keyname"
 *save to ~/.ssh/keyname
 ~~~
+
 ~~~
 *add key
 $ ssh-add ~/.ssh/keyname
@@ -154,13 +155,29 @@ ssh-add $HOME/.ssh/key@name2 </dev/null
 ssh-add $HOME/.ssh/key@name3 </dev/null
 ~~~
 
+### SSH SERVER
 ~~~
-* mkdir .ssh on VM
+* Enable password, disable pubkey authentication for ssh server (sshd)
+/etc/ssh/sshd_config
+set 'PasswordAuthentication yes'
+set 'PubkeyAuthentication no'
+
+* change sshd port '/etc/ssh/sshd_config'
+set same as startup config for VM or HOST (SSH_PORT 5xxxx)
+
+* allow ssh port
+$ sudo ufw allow SSH_PORT
+
+$ sudo systemctl restart sshd.service
+~~~
+
+~~~
+* mkdir .ssh on server
 $  ssh vm_login@vm_ip_port 'mkdir -p ~/.ssh'
 ~~~
 
 ~~~
-* add key to VM 'authorized_keys'
+* add public key to 'authorized_keys' on server
 $ cat ~/.ssh/keyname.pub | ssh vm_login@vm_ip_port 'cat >> ~/.ssh/authorized_keys'
 ~~~
 
@@ -168,17 +185,16 @@ $ cat ~/.ssh/keyname.pub | ssh vm_login@vm_ip_port 'cat >> ~/.ssh/authorized_key
 $ ssh vm_login@vm_ip_port
 ~~~
 
-### VM
-
 ~~~
-sudo ufw allow SSH_PORT
-
-chmod 600 ~/.ssh/authorized_keys
+$ chmod 600 ~/.ssh/authorized_keys
 ~~~
 
 ~~~
-Disable password authentication in ssh
-set 'PasswordAuthentication no' in
+Disable password, enable pubkey authentication for ssh server (sshd)
 /etc/ssh/sshd_config
+set 'PasswordAuthentication no'
+set 'PubkeyAuthentication yes'
+
+$ sudo systemctl restart sshd.service
 ~~~
 
