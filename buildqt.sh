@@ -5,6 +5,7 @@ sudo apt update
 # sudo apt dist-upgrade -y
 sudo apt install -y wget xz-utils
 sudo apt install -y openjdk-8-jdk openjdk-8-jdk-headless
+sudo apt install -y g++
 # sudo apt install -y android-sdk
 sudo apt autoremove -y
 sudo apt autoclean -y
