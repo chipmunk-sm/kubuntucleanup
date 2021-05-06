@@ -168,6 +168,8 @@ if [ -z "${ANDROID_SDK_ROOT}" ] || [ -z "${ANDROID_NDK_ROOT}" ]; then
     retval=$?; if ! [[ $retval -eq 0 ]]; then echo "Failed install Android SDK & NDK [$retval]"; exit 1; fi
     ANDROID_NDK_ROOT=$(cat tmp.ANDROID_NDK_ROOT.txt) && rm tmp.ANDROID_NDK_ROOT.txt
 fi
+
+ANDROID_NDK_ROOT=$(echo "$ANDROID_NDK_ROOT" | sed s#//*#/#g)
     
 if   [ -x "$(command -v $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager)"  ]; then
     echo -e "Use Android SDK in path [$ANDROID_SDK_ROOT]"
@@ -185,8 +187,7 @@ fi
 
 echo -e "***************************"
 echo -e ""
-
-export PATH=$JAVA_HOME/bin:$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
+export PATH=$JAVA_HOME/bin:$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin:$ANDROID_NDK_ROOT/prebuilt/linux-x86_64/bin:$PATH
 echo -e "PATH=[$PATH]\n"
 
 QTINSTALLDIR=$QTROOTFOLDER/$QT_VERSION
