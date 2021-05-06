@@ -5,6 +5,7 @@ sudo apt update
 # sudo apt dist-upgrade -y
 sudo apt install -y wget xz-utils
 sudo apt install -y openjdk-8-jdk openjdk-8-jdk-headless
+# sudo apt install -y android-sdk
 sudo apt autoremove -y
 sudo apt autoclean -y
 
@@ -73,7 +74,25 @@ sudo apt autoclean -y
 
 QT_VERSION_MAJOR=5.15
 QT_VERSION=5.15.2
-QTROOTFOLDER=$HOME/Qt1
+QTROOTFOLDER=$HOME/Qt
+
+if [ -z "${ANDROID_SDK_ROOT}" ];  then
+
+    export ANDROID_SDK_XROOT=$HOME/android-sdk
+    
+    export ANDROID_SDK_PLATFORM_VER=android-30
+    export ANDROID_SDK_BUILDTOOLS_VER=30.0.2
+    export ANDROID_SDK_SOURCESDK_VER=commandlinetools-linux-6200805_latest.zip
+    
+    #export ANDROID_NDK_XNAME=android-ndk-r21b-linux-x86_64.zip
+    #export ANDROID_NDK_XSHA1CHECKSUM=50250fcba479de477b45801e2699cca47f7e1267
+    export ANDROID_NDK_XNAME=android-ndk-r21d-linux-x86_64.zip
+    export ANDROID_NDK_XSHA1CHECKSUM=bcf4023eb8cb6976a4c7cff0a8a8f145f162bf4d
+    #export ANDROID_NDK_XNAME=android-ndk-r21e-linux-x86_64.zip
+    #export ANDROID_NDK_XSHA1CHECKSUM=c3ebc83c96a4d7f539bd72c241b2be9dcd29bda9
+    export ANDROID_NDK_XURL=https://dl.google.com/android/repository
+fi
+ 
 QTSRCBASENAME=qt-everywhere-src-$QT_VERSION
 
 QTSRCRELEASE=${QTSRCBASENAME}.tar.xz
@@ -109,9 +128,23 @@ elif [ -x "$(command -v $HOME/android-sdk/cmdline-tools/tools/bin/sdkmanager)"  
 elif [ -x "$(command -v $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager)" ]; then
     export ANDROID_SDK_ROOT=$HOME/android-sdk
     echo -e "Use exist Android SDK (latest) [$ANDROID_SDK_ROOT]"
+# elif [ -x "$(command -v /usr/lib/android-sdk/cmdline-tools/latest/bin/sdkmanager)" ]; then
+#     export ANDROID_SDK_ROOT=/usr/lib/android-sdk/
+#     echo -e "Use exist native Android SDK [$ANDROID_SDK_ROOT]"
 else
-    echo -e "ANDROID_SDK_ROOT not set.\nAndroid sdk not found. Abort."
-    exit 1
+
+    export ANDROID_SDK_ROOT=$ANDROID_SDK_XROOT
+    
+    ./installAndroidSDK.sh
+    
+    retval=$?; if ! [[ $retval -eq 0 ]]; then echo "Failed install Android SDK [$retval]"; exit 1; fi
+    
+    if   [ -x "$(command -v $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager)"  ]; then
+        echo -e "Use Android SDK in path [$ANDROID_SDK_ROOT]"
+    else
+        echo -e "ANDROID_SDK_ROOT not set.\nAndroid sdk not found. Abort."
+        exit 1
+    fi
 fi
 
 # ***************************
