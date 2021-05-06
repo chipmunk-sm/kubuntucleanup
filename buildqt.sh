@@ -80,9 +80,10 @@ if [ -z "${ANDROID_SDK_ROOT}" ];  then
 
     export ANDROID_SDK_XROOT=$HOME/android-sdk
     
-    export ANDROID_SDK_PLATFORM_VER=android-30
-    export ANDROID_SDK_BUILDTOOLS_VER=30.0.2
-    export ANDROID_SDK_SOURCESDK_VER=commandlinetools-linux-6200805_latest.zip
+    export ANDROID_SDK_PLATFORM=android-30
+    export ANDROID_SDK_BUILDTOOLS=30.0.2
+    export ANDROID_SDK_SOURCESDK=commandlinetools-linux-6200805_latest.zip
+    export ANDROID_SDK_URL=https://dl.google.com/android/repository
     
     #export ANDROID_NDK_XNAME=android-ndk-r21b-linux-x86_64.zip
     #export ANDROID_NDK_XSHA1CHECKSUM=50250fcba479de477b45801e2699cca47f7e1267
@@ -97,8 +98,8 @@ QTSRCBASENAME=qt-everywhere-src-$QT_VERSION
 
 QTSRCRELEASE=${QTSRCBASENAME}.tar.xz
 
-# ***************************
-# JAVA_HOME
+echo -e "***************************"
+echo -e "JAVA_HOME"
 
 if ! [ -d "$JAVA_HOME" ]; then
     export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
@@ -112,13 +113,13 @@ else
     echo -e "Use JAVA_HOME [$JAVA_HOME]"
 fi
 
-# ***************************
-# create Qt root folder
+echo -e "***************************"
+echo -e "create Qt root folder [$QTROOTFOLDER]"
 
 mkdir -p $QTROOTFOLDER
 
-# ***************************
-# ANDROID_SDK_ROOT
+echo -e "***************************"
+echo -e "ANDROID_SDK_ROOT"
 
 if   [ -x "$(command -v $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager)"  ]; then
     echo -e "Use Android SDK in path [$ANDROID_SDK_ROOT]"
@@ -132,46 +133,60 @@ elif [ -x "$(command -v $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager)" 
 #     export ANDROID_SDK_ROOT=/usr/lib/android-sdk/
 #     echo -e "Use exist native Android SDK [$ANDROID_SDK_ROOT]"
 else
-
-    export ANDROID_SDK_ROOT=$ANDROID_SDK_XROOT
-    
-    ./installAndroidSDK.sh
-    
-    retval=$?; if ! [[ $retval -eq 0 ]]; then echo "Failed install Android SDK [$retval]"; exit 1; fi
-    
-    if   [ -x "$(command -v $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager)"  ]; then
-        echo -e "Use Android SDK in path [$ANDROID_SDK_ROOT]"
-    else
-        echo -e "ANDROID_SDK_ROOT not set.\nAndroid sdk not found. Abort."
-        exit 1
-    fi
+    export ANDROID_SDK_ROOT=
 fi
 
-# ***************************
-# ANDROID_NDK_ROOT
+echo -e "***************************"
+echo -e "ANDROID_NDK_ROOT"
 
 if ! [ -x "$(command -v $ANDROID_NDK_ROOT/prebuilt/linux-x86_64/bin/make)" ]; then
     if [ -d "$ANDROID_SDK_ROOT/ndk" ]; then
+    
         echo "Local NDK folder exist [$ANDROID_SDK_ROOT/ndk]"
         testFolder=$ANDROID_SDK_ROOT/ndk/*/
         listNdk=$(ls -d $testFolder | sort)
         echo -e "Local NDK list:\n$listNdk"
         export ANDROID_NDK_ROOT=$(echo "$listNdk" | tail -n1)
         echo -e "NDK path for test [$ANDROID_NDK_ROOT]"
+        
         if ! [ -x "$(command -v $ANDROID_NDK_ROOT/prebuilt/linux-x86_64/bin/make)" ]; then
-            echo -e "ANDROID_NDK_ROOT not set.\nAndroid ndk in path [$ANDROID_NDK_ROOT] not found. Abort."
-            exit 1
+            export ANDROID_NDK_ROOT=
         fi
+        
     else
-        echo -e "ANDROID_NDK_ROOT not set.\nAndroid ndk in path [$ANDROID_SDK_ROOT/ndk] not found. Abort."
-        exit 1
+    
+        export ANDROID_NDK_ROOT=
+        
     fi
 fi
 
-# ***************************
-#
+if [ -z "${ANDROID_SDK_ROOT}" ] || [ -z "${ANDROID_NDK_ROOT}" ]; then 
 
-export PATH=$JAVA_HOME/bin:$PATH
+    export ANDROID_SDK_ROOT=$ANDROID_SDK_XROOT
+    
+    ./installAndroidSDK.sh
+    retval=$?; if ! [[ $retval -eq 0 ]]; then echo "Failed install Android SDK & NDK [$retval]"; exit 1; fi
+    ANDROID_NDK_ROOT=$(cat tmp.ANDROID_NDK_ROOT.txt) && rm tmp.ANDROID_NDK_ROOT.txt
+fi
+    
+if   [ -x "$(command -v $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager)"  ]; then
+    echo -e "Use Android SDK in path [$ANDROID_SDK_ROOT]"
+else
+    echo -e "ANDROID_SDK_ROOT not set.\nAndroid sdk not found. Abort."
+    exit 1
+fi
+
+if [ -x "$(command -v $ANDROID_NDK_ROOT/prebuilt/linux-x86_64/bin/make)" ]; then
+    echo -e "Use Android NDK in path [$ANDROID_NDK_ROOT]"
+else
+    echo -e "Android ndk in path [$ANDROID_NDK_ROOT] not found. Abort."
+    exit 1
+fi
+
+echo -e "***************************"
+echo -e ""
+
+export PATH=$JAVA_HOME/bin:$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
 echo -e "PATH=[$PATH]\n"
 
 QTINSTALLDIR=$QTROOTFOLDER/$QT_VERSION
@@ -183,19 +198,19 @@ echo -e "QTBUILDDIR=[$QTBUILDDIR]"
 QTSRCDIR=$QTROOTFOLDER/$QTSRCBASENAME
 echo -e "QTSRCDIR=[$QTSRCDIR]"
 
-# ***************************
-# archive exist or download if not
+echo -e "\n***************************\n"
+echo -e "Test archive or download...\n"
 
-if ! [ -f "$QTROOTFOLDER/$QTSRCRELEASE" ]; then
+if ! [ -f "$HOME/cache/$QTSRCRELEASE" ]; then
 
-    echo "Download Qt source..."
+    echo -e "Download Qt source..."
 
-    wget -N https://download.qt.io/official_releases/qt/$QT_VERSION_MAJOR/$QT_VERSION/single/$QTSRCRELEASE -P $QTROOTFOLDER
-    wget -N https://download.qt.io/official_releases/qt/$QT_VERSION_MAJOR/$QT_VERSION/single/md5sums.txt -P $QTROOTFOLDER
+    wget -N https://download.qt.io/official_releases/qt/$QT_VERSION_MAJOR/$QT_VERSION/single/$QTSRCRELEASE -P $HOME/cache
+    wget -N https://download.qt.io/official_releases/qt/$QT_VERSION_MAJOR/$QT_VERSION/single/md5sums.txt -P $HOME/cache
 
-    echo "Test [$QTROOTFOLDER/md5sums.txt]"
+    echo -e "Test [$HOME/cache/md5sums.txt]"
 
-    INPUT=$QTROOTFOLDER/md5sums.txt
+    INPUT=$HOME/cache/md5sums.txt
     OLDIFS=$IFS
     IFS=' '
     declare -A arr
@@ -206,32 +221,39 @@ if ! [ -f "$QTROOTFOLDER/$QTSRCRELEASE" ]; then
     done < $INPUT
     IFS=$OLDIFS
 
-    echo "Test [$QTROOTFOLDER/$QTSRCRELEASE]"
+    echo -e "Test [$HOME/cache/$QTSRCRELEASE]"
 
-    md5=`md5sum $QTROOTFOLDER/$QTSRCRELEASE`
+    md5=`md5sum $HOME/cache/$QTSRCRELEASE`
     md5=$(echo $md5 | cut -d' ' -f 1)
 
     if [ $md5 != ${arr["$QTSRCRELEASE"]} ]; then
-        echo "MD5 checksum failed."
+        echo -e "MD5 checksum failed."
         exit 1
     fi
 
-    echo "MD5 checksum Ok."
+    echo -e "MD5 checksum Ok.\n"
 
 fi
 
-echo "Extract [$QTROOTFOLDER/$QTSRCRELEASE]"
+echo -e "***************************\n"
+echo -e "Extract [$HOME/cache/$QTSRCRELEASE] to $QTROOTFOLDER"
 
-tar -xf $QTROOTFOLDER/$QTSRCRELEASE -C $QTROOTFOLDER
+rm -rf $QTSRCDIR
+ 
+tar -xf $HOME/cache/$QTSRCRELEASE -C $QTROOTFOLDER
 
-echo "Prepare build and install folder..."
+echo -e "***************************\n"
+echo -e "Prepare build and install folder..."
 
 mkdir -p $QTINSTALLDIR
 mkdir -p $QTBUILDDIR
 
 cd $QTBUILDDIR
 
-echo "Build [$QTSRCDIR] in [$QTBUILDDIR]"
+echo -e "***************************\n"
+echo -e "Run [$QTSRCDIR/configure] pwd = [$QTBUILDDIR]"
+
+# -spec linux-clang QMAKE_CC=clang QMAKE_CXX=clang++ QMAKE_LINK=clang++
 
 $QTSRCDIR/configure -xplatform android-clang \
                     -prefix $QTINSTALLDIR \
@@ -244,7 +266,14 @@ $QTSRCDIR/configure -xplatform android-clang \
                     -opensource \
                     -confirm-license
 
+echo -e "\n***************************"
+echo -e "make -j$(nproc)...\n"
+
 make -j$(nproc)
+
+echo -e "\n***************************"
+echo -e "make -j$(nproc) install...\n"
+
 make -j$(nproc) install
 
 # rm $QTROOTFOLDER/md5sums.txt
