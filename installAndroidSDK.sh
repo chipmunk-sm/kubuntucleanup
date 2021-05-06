@@ -68,6 +68,7 @@ else
 fi
 
 ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk
+mkdir -p $ANDROID_NDK_ROOT
 
 echo -e "Unzip NDK [$HOME/cache/$ANDROID_NDK_XNAME] > [$(pwd)/tmp]\n"
 unzip -o -qq "$HOME/cache/$ANDROID_NDK_XNAME" -d "$(pwd)/tmp";
