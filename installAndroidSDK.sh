@@ -93,13 +93,13 @@ done < "$verfile"
 
 echo "NDK revision [$Pkg_Revision]"
 
+export ANDROID_NDK_ROOT="${ANDROID_NDK_ROOT}/${Pkg_Revision}"
+echo "Set ANDROID_NDK_ROOT=[$ANDROID_NDK_ROOT]"
 
 rm -rf "$ANDROID_NDK_ROOT"
 
 mv -v $(pwd)/tmp/android-ndk-r* $ANDROID_NDK_ROOT
 retval=$?; if ! [[ $retval -eq 0 ]]; then echo "Failed [$retval]"; exit 1; fi
 
-export ANDROID_NDK_ROOT="${ANDROID_NDK_ROOT}/${Pkg_Revision}"
-echo "Set ANDROID_NDK_ROOT=[$ANDROID_NDK_ROOT]"
 
 printf %s "$ANDROID_NDK_ROOT" > tmp.ANDROID_NDK_ROOT.txt
