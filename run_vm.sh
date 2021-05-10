@@ -66,6 +66,13 @@
 # ssh build2004a@127.0.0.1 -p 5558
 # ssh build2004u@127.0.0.1 -p 5559
 
+# ***************************************
+
+# copy from VM to HOST
+# $ scp -P 5559 build2004u@127.0.0.1:/home/build2004u/Downloads/archive.zip /home/${USER}/Downloads/
+
+# copy from HOST to VM
+# $ scp -P 5559 /home/${USER}/Downloads/archive.zip build2004u@127.0.0.1:/home/build2004u/Downloads/
 
 mainPid=$$
 
