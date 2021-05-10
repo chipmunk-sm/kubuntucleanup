@@ -191,7 +191,7 @@ echo -e ""
 export PATH=$JAVA_HOME/bin:$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin:$ANDROID_NDK_ROOT/prebuilt/linux-x86_64/bin:$PATH
 echo -e "PATH=[$PATH]\n"
 
-QTINSTALLDIR=$QTROOTFOLDER/$QT_VERSION
+QTINSTALLDIR=$QTROOTFOLDER/$QT_VERSION/android
 echo -e "QTINSTALLDIR=[$QTINSTALLDIR]"
 
 QTBUILDDIR=$QTROOTFOLDER/build-$QT_VERSION
@@ -271,7 +271,7 @@ $QTSRCDIR/configure -xplatform android-clang \
 echo -e "\n***************************"
 echo -e "make -j$(nproc)...\n"
 
-make -j$(nproc)
+make --silent -j$(nproc)
 
 echo -e "\n***************************"
 echo -e "make -j$(nproc) install...\n"

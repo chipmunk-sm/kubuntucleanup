@@ -1,10 +1,25 @@
 #!/bin/sh
 
+# qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/ubuntu_20.04.2.0_desktop_amd64         /media/${USER}/Data/root/qemu/ubuntu_20.04.2.0_desktop_amd64_1
+# qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/kubuntu_20.04.2.0_desktop_amd64        /media/${USER}/Data/root/qemu/kubuntu_20.04.2.0_desktop_amd64_1
+# qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/kubuntu-18.04.2-desktop-amd64          /media/${USER}/Data/root/qemu/kubuntu-18.04.2-desktop-amd64_1
+# qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/kubuntu-16.04.5-desktop-amd64          /media/${USER}/Data/root/qemu/kubuntu-16.04.5-desktop-amd64_1
+# qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/en_windows_10_enterprise_ltsc_2019_x64 /media/${USER}/Data/root/qemu/en_windows_10_enterprise_ltsc_2019_x64_1
+
+
+# scp -P 5555 "$HOME/Documents/installqt.sh" build1604a@127.0.0.1:"/home/build1604a/Downloads/"
+# ssh build1604a@127.0.0.1 -p 5555
+
 # scp -P 5556 "$HOME/Documents/installqt.sh" build1804a@127.0.0.1:"/home/build1804a/Downloads/"
 # ssh build1804a@127.0.0.1 -p 5556
 
+# ssh build10a@127.0.0.1 -p 5557
+
 # scp -P 5558 "$HOME/Documents/installqt.sh" build2004a@127.0.0.1:"/home/build2004a/Downloads/"
 # ssh build2004a@127.0.0.1 -p 5558
+
+# scp -P 5559 "$HOME/Documents/installqt.sh" build2004u@127.0.0.1:"/home/build2004u/Downloads/"
+# ssh build2004u@127.0.0.1 -p 5559
 
 mainPid=$$
 
@@ -23,6 +38,9 @@ mainPid=$$
 
 #kubuntu_20.04.2.0_desktop_amd64
 #./run_vm.sh 4
+
+#ubuntu_20.04.2.0_desktop_amd64
+#./run_vm.sh 5
 
 imgID=$1
 
@@ -71,6 +89,10 @@ elif [ "$imgID" = 4 ]; then
     fileName="${QEMU_HDD_FOLDER}kubuntu_20.04.2.0_desktop_amd64"
     vmPort=5558
     vmUser=build2004a
+elif [ "$imgID" = 5 ]; then
+    fileName="${QEMU_HDD_FOLDER}ubuntu_20.04.2.0_desktop_amd64"
+    vmPort=5559
+    vmUser=build2004u
 else
     echo "${colorRED}***** VM id out of range [${imgID}]${colorDef}\nAbort..."
     exit 1
@@ -115,6 +137,8 @@ watchdogPid=$!
 #+ "trap" if this script is terminated send system_powerdown to VM
 trap "echo \"Abort\"; kill $watchdog 2> /dev/null; echo \"system_powerdown\" > \"${QEMU_TEMP_FOLDER}/${vmName}.in\"" EXIT
 #~  "trap" if this script is terminated send system_powerdown to VM
+
+# runCommand=" -cpu host -smp 4 -machine accel=kvm -m 4096 -no-fd-bootchk -hda ${fileName} -boot order=cd,menu=on -device e1000,netdev=user.0 -netdev user,id=user.0,hostfwd=tcp::${vmPort}-:${vmPort} -rtc base=localtime -name ${vmName} ${extFlag} ${QEMU_SNAPSHOT_MODE} ${monitorType} -cdrom /media/f/Data/root/qemu/ubuntu-20.04.2.0-desktop-amd64.iso"
 
 runCommand=" -cpu host -smp 4 -machine accel=kvm -m 4096 -no-fd-bootchk -hda ${fileName} -boot order=cd,menu=off -device e1000,netdev=user.0 -netdev user,id=user.0,hostfwd=tcp::${vmPort}-:${vmPort} -rtc base=localtime -name ${vmName} ${extFlag} ${QEMU_SNAPSHOT_MODE} ${monitorType}"
 
