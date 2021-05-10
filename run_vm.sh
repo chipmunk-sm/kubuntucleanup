@@ -1,25 +1,71 @@
 #!/bin/sh
 
-# qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/ubuntu_20.04.2.0_desktop_amd64         /media/${USER}/Data/root/qemu/ubuntu_20.04.2.0_desktop_amd64_1
-# qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/kubuntu_20.04.2.0_desktop_amd64        /media/${USER}/Data/root/qemu/kubuntu_20.04.2.0_desktop_amd64_1
-# qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/kubuntu-18.04.2-desktop-amd64          /media/${USER}/Data/root/qemu/kubuntu-18.04.2-desktop-amd64_1
-# qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/kubuntu-16.04.5-desktop-amd64          /media/${USER}/Data/root/qemu/kubuntu-16.04.5-desktop-amd64_1
-# qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/en_windows_10_enterprise_ltsc_2019_x64 /media/${USER}/Data/root/qemu/en_windows_10_enterprise_ltsc_2019_x64_1
+# $qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/kubuntu-16.04.5-desktop-amd64          /media/${USER}/Data/root/qemu/kubuntu-16.04.5-desktop-amd64_1
+# $qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/kubuntu-18.04.2-desktop-amd64          /media/${USER}/Data/root/qemu/kubuntu-18.04.2-desktop-amd64_1
+# $qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/en_windows_10_enterprise_ltsc_2019_x64 /media/${USER}/Data/root/qemu/en_windows_10_enterprise_ltsc_2019_x64_1
+# $qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/kubuntu_20.04.2.0_desktop_amd64        /media/${USER}/Data/root/qemu/kubuntu_20.04.2.0_desktop_amd64_1
+# $qemu-img convert -c -O qcow2 /media/${USER}/Data/root/qemu/ubuntu_20.04.2.0_desktop_amd64         /media/${USER}/Data/root/qemu/ubuntu_20.04.2.0_desktop_amd64_1
+
+# **** example. 
+# prepare VM, Host for remote control
+
+# $ sudo apt install openssh-server
+# $ sudo apt install mc
+
+# Enable password, disable pubkey authentication for ssh server (sshd)
+# * /etc/ssh/sshd_config
+# * set 'PasswordAuthentication yes'
+# * set 'PubkeyAuthentication no'
+# * Change sshd port, set same as startup config for VM or HOST (SSH_PORT 5xxxx)
+
+# ufw allow ssh port
+# $ sudo ufw allow SSH_PORT
+
+# restart sshd
+# $ sudo systemctl restart sshd.service
+
+# VM
+# $ ssh buildvm@127.0.0.1 -p 5555 'mkdir -p ~/.ssh'
+# $ cat ~/.ssh/buildvm@buildvm.pub | ssh buildvm@127.0.0.1 -p 5555 'cat >> ~/.ssh/authorized_keys'
+# $ ssh buildvm@127.0.0.1 -p 5555 'chmod 600 ~/.ssh/authorized_keys'
+# $ ssh buildvm@127.0.0.1 -p 5555 'chmod 700 ~/.ssh'
+
+# VM (windows)
+# $ ssh build10a@127.0.0.1 -p 5557 'mkdir -p ~/.ssh'
+# $ scp -P 5557 /home/f/.ssh/build10a@win10Lts2019.pub build10a@127.0.0.1:C:\Users\build10a\.ssh\
 
 
-# scp -P 5555 "$HOME/Documents/installqt.sh" build1604a@127.0.0.1:"/home/build1604a/Downloads/"
+# HOST
+# $ ssh build@build.com -p 60021 'mkdir -p ~/.ssh'
+# $ cat ~/.ssh/build@build.pub | ssh build@build.com -p 60021 'cat >> ~/.ssh/authorized_keys'
+# $ ssh build@build.com -p 60021 'chmod 600 ~/.ssh/authorized_keys'
+# $ ssh build@build.com -p 60021 'chmod 700 ~/.ssh'
+
+# Disable password, enable pubkey authentication for ssh server (sshd)
+# *** /etc/ssh/sshd_config
+# *** set 'PasswordAuthentication no'
+# *** set 'PubkeyAuthentication yes'
+
+# restart sshd
+# $ sudo systemctl restart sshd.service
+
+# copy key for ssh from HOST to VM
+# $ scp -P 60021 ~/.ssh/buildvm@buildvm.pub build@build.com:~/.ssh/
+# $ scp -P 60021 ~/.ssh/buildvm@buildvm build@build.com:~/.ssh/
+# $ ssh build@build.com -p 60021 'chmod 644 ~/.ssh/buildvm@buildvm.pub'
+# $ ssh build@build.com -p 60021 'chmod 600 ~/.ssh/buildvm@buildvm'
+
+# ***************************************
+# Create an ssh tunnel, connect to the VNC Desktop
+# ssh build1@10.174.2.134 -p 60021  -C  -L 5901:127.0.0.1:5901
+
+# ***************************************+
 # ssh build1604a@127.0.0.1 -p 5555
-
-# scp -P 5556 "$HOME/Documents/installqt.sh" build1804a@127.0.0.1:"/home/build1804a/Downloads/"
 # ssh build1804a@127.0.0.1 -p 5556
-
-# ssh build10a@127.0.0.1 -p 5557
-
-# scp -P 5558 "$HOME/Documents/installqt.sh" build2004a@127.0.0.1:"/home/build2004a/Downloads/"
+# ssh win10ltsc64@127.0.0.1 -p 5557
 # ssh build2004a@127.0.0.1 -p 5558
-
-# scp -P 5559 "$HOME/Documents/installqt.sh" build2004u@127.0.0.1:"/home/build2004u/Downloads/"
 # ssh build2004u@127.0.0.1 -p 5559
+
 
 mainPid=$$
 
