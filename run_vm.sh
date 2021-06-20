@@ -173,6 +173,25 @@ then
     monitorType="-monitor pipe:${QEMU_TEMP_FOLDER}/${vmName}"
     echo "**System powerdown command:"
     echo "${colorBLUE}echo system_powerdown > ${QEMU_TEMP_FOLDER}/${vmName}.in${colorDef}"
+    echo ""
+    echo "***"
+    echo ""
+    echo " kubuntu-16.04.5-desktop-amd64"
+    echo "$ ./run_vm.sh 1"
+
+    echo " kubuntu-18.04.2-desktop-amd64"
+    echo "$ ./run_vm.sh 2"
+
+    echo " en_windows_10_enterprise_ltsc_2019_x64"
+    echo "$ ./run_vm.sh 3"
+
+    echo " kubuntu_20.04.2.0_desktop_amd64"
+    echo "$ ./run_vm.sh 4"
+
+    echo " ubuntu_20.04.2.0_desktop_amd64"
+    echo "$ ./run_vm.sh 5"
+    echo ""
+
 fi
 
 echo "**ssh connect:"
@@ -216,13 +235,6 @@ done
 
 echo "*** exit ${vmName}"
 
-#+ kill watchdog
 kill $watchdogPid
-#~ kill watchdog
 
-#+ activate "trap"
 trap - EXIT
-#~ activate "trap"
-
-#,hostfwd=tcp::5901-:5901
-#nohup
