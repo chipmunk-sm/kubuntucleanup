@@ -201,7 +201,7 @@ $ sudo ufw status verbose
 ~~~
 
 ~~~
-$ sudo apt install netstat-nat
+$ sudo apt install net-tools
 $ sudo netstat -tulpn
 
 * example allow port or port range
