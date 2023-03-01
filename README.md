@@ -213,4 +213,40 @@ $ sudo ufw enable
 ~~~
 
 
+### wsl (2023 upd)
+~~~
+Update WSL (--web-download: Use GitHub rather than the Microsoft Store.)
+$ wsl --update
+
+Show default distribution type, default distribution, and kernel version.
+$ wsl --status
+
+Show list of available Linux distributions for download.
+$ wsl --list --online
+
+Install Ubuntu 22.04 LTS as default Linux distribution on WSL. ("-d" set as default)
+$ wsl --install -d Ubuntu-22.04
+
+Lists the name of each distro, state, version. It also shows which distributions is default with an asterisk.
+$ wsl --list --verbose
+
+Immediately terminate all.
+$ wsl --shutdown
+
+Terminate the specified distribution
+wsl --terminate  Ubuntu-22.04
+
+Clean distribution
+$ wsl --unregister Ubuntu-22.04
+
+$ wsl --list
+
+$ wsl --set-default Ubuntu-22.04
+
+details: 
+https://learn.microsoft.com/en-us/windows/wsl/basic-commands
+
+
+~~~
+
 
